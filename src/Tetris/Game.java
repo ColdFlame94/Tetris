@@ -12,7 +12,7 @@ public class Game extends JPanel implements Runnable{
 	Color squareColor;
 	String highScore;
 	boolean isBlockMovingDown, stopGame, isUnrotateableShape;
-	int sleepTime, tempSleepTime, x1, x2, x3, x4, index, currScore, tempBlockNum, prevIndex;
+	int sleepTime, tempSleepTime, x1, x2, x3, x4, index, currScore, tempBlockNum, clearedRowsCounter;
 	int rotations[][]={{0,0,0,0}, //Every array in the matrix represents the coordinates of the variations of every single block
 			           {9,0,-9,-18},{-9,0,9,18},
 			           {-1,11,0,10},{0,-19,0,-19},{0,-2,0,18},{1,10,0,-9}, 
@@ -71,8 +71,7 @@ public class Game extends JPanel implements Runnable{
 				 {
 					 for(int i=0;i<squares.length;i++)//I rotate the block by repainting the block's coordinates by using the rotations matrix
 					 {
-						 if(i==x1 && x1+rotations[index][0]!=x1 || i==x2 && x2+rotations[index][1]!=x2 
-						 || i==x3 && x3+rotations[index][2]!=x3 || i==x4 && x4+rotations[index][3]!=x4)
+						 if(i==x1 || i==x2 || i==x3  || i==x4 )
 						 {
 							 squares[i].color=Color.BLACK;
 							 squares[i].repaint();
@@ -282,15 +281,21 @@ public class Game extends JPanel implements Runnable{
 								squares[j].repaint();	
 							}
 						}
-						currScore+=100;
+						currScore+=100;						
+						if(clearedRowsCounter>0)
+						{
+							currScore+=100;
+						}
 						AppFrame.gameInfo.setText("   Score: "+currScore);
+						clearedRowsCounter++;
 					}
 					else
 					{
 						min-=10;//If the row wasn't cleared I move on to check the next one above
 						max-=10;
+						clearedRowsCounter=0;
 					}	
-				}	
+				}
 			}
 		}	
 	}
@@ -307,14 +312,11 @@ public class Game extends JPanel implements Runnable{
 	 }
 	
 	public boolean checkIfRowCanBeCleared(int min, int max){ //If the entire row has no black squares, it can be cleared
-		for(int i=0;i<squares.length;i++)
+		for(int i=min;i<=max;i++)
 		{
-			if(i>=min && i<=max)
+			if(squares[i].color==Color.BLACK)
 			{
-				if(squares[i].color==Color.BLACK)
-				{
-					return false;
-				}
+				return false;
 			}
 		}
 		return true;
