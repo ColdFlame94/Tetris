@@ -286,7 +286,7 @@ public class Game extends JPanel implements Runnable{
 						{
 							currScore+=50;
 						}
-						AppFrame.gameInfo.setText("   Score: "+currScore);
+						AppFrame.gameInfo.setText("   Score: "+currScore+ "   Highscore: "+highScore);
 						clearedRowsCounter++;
 					}
 					else

@@ -14,7 +14,7 @@ public class AppFrame extends JFrame{
 	public AppFrame() {
 		game=new Game();
 		menuBar=new JMenuBar();
-		gameInfo=new JLabel("   Score: "+game.currScore);
+		gameInfo=new JLabel("   Score: "+game.currScore+ "   Highscore: "+game.highScore);
 		backToMenu=new JButton("Back");
 		menuBar.add(gameInfo);
 		
