@@ -284,7 +284,7 @@ public class Game extends JPanel implements Runnable{
 						currScore+=100;						
 						if(clearedRowsCounter>0)
 						{
-							currScore+=100;
+							currScore+=50;
 						}
 						AppFrame.gameInfo.setText("   Score: "+currScore);
 						clearedRowsCounter++;
