@@ -12,7 +12,7 @@ public class Game extends JPanel implements Runnable{
 	Color squareColor;
 	String highScore;
 	boolean isBlockMovingDown, stopGame, isUnrotateableShape;
-	int sleepTime, tempSleepTime, x1, x2, x3, x4, index, currScore, tempBlockNum, clearedRowsCounter;
+	int sleepTime, tempSleepTime, x1, x2, x3, x4, index, currScore, prevBlockNum, clearedRowsCounter;
 	int rotations[][]={{0,0,0,0}, //Every array in the matrix represents the coordinates of the variations of every single block
 			           {9,0,-9,-18},{-9,0,9,18},
 			           {-1,11,0,10},{0,-19,0,-19},{0,-2,0,18},{1,10,0,-9}, 
@@ -28,7 +28,7 @@ public class Game extends JPanel implements Runnable{
 		 squares=new Square[200];
 		 sleepTime=1500;
 		 stopGame=false;
-		 tempBlockNum=-1;
+		 prevBlockNum=-1;
 		 isUnrotateableShape=false;
 		 
 		 for(int i=0;i<squares.length;i++)
@@ -149,13 +149,13 @@ public class Game extends JPanel implements Runnable{
 			{
 				isBlockMovingDown=true;
 				int arr[]= {0,1,3,7,11,13,15};//Every number represents one of the 7 default blocks
-				int blockNum=0;
+				int blockNum;
 				
 				do {
 					blockNum=(int) (Math.random()*7);//I pick a random index to draw a random block based on the index and I make sure the same index won't be picked twice.
-				}while(blockNum==tempBlockNum);
+				}while(blockNum==prevBlockNum);
 
-				tempBlockNum=blockNum;
+				prevBlockNum=blockNum;
 				index=arr[blockNum];//The index is saved to use it later for the block's rotations
 
 				switch(arr[blockNum]){//Determines the coordinates of the chosen shape and its' color
